@@ -1,6 +1,6 @@
 <template>
-  <TheMemoList msg="Memo"/>
-  <TheForm/>
+  <the-memo-list :memos="memos" @send-selected-memo-data="checkSelectedMemo"/>
+  <the-form :memos="memos" :selectedMemo="selectedMemo"/>
 </template>
 
 <script>
@@ -8,11 +8,32 @@ import TheMemoList from './components/TheMemoList.vue'
 import TheForm from './components/TheForm.vue'
 
 export default {
-  name: 'App',
   components: {
     TheMemoList,
     TheForm
-}
+  },
+  data() {
+    return {
+      memos: [],
+      selectedMemo: null
+      // newMemo: null
+    }
+  },
+  mounted() {
+    if (localStorage.getItem('memos')) {
+      try {
+        this.memos = JSON.parse(localStorage.getItem('memos'));
+      } catch (e) {
+        localStorage.removeItem('memos');
+      }
+    }
+  },
+  methods: {
+    checkSelectedMemo(selectedMemo) {
+      this.selectedMemo = selectedMemo
+      // this.$refs.form.showForm(this.selectedMemo)
+    }
+  }
 }
 </script>
 

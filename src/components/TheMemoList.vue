@@ -1,22 +1,31 @@
 <template>
   <div class="memo-list">
-    <h1>{{ msg }}</h1>
+    <h1>memo</h1>
+    <span class="add-mark" @click="selectFromList('add-mark')">+</span>
+    <ul>
+      <li v-for="memo in memos" :key="memo.time" @click="selectFromList(memo)">
+      {{ memo.title }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'TheMemoList',
   props: {
-    msg: String
+    memos: Array
+  },
+  methods: {
+    selectFromList (selectedMemo) {
+      this.$emit('send-selected-memo-data', selectedMemo)
+    }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+h1 {
+  display: inline-block;
 }
 
 ul {
@@ -25,8 +34,12 @@ ul {
 }
 
 li {
-  display: inline-block;
   margin: 0 10px;
+}
+
+li:hover, .add-mark:hover {
+  color: blue;
+  cursor: pointer;
 }
 
 a {
@@ -36,5 +49,11 @@ a {
 .memo-list {
   width: 400px;
   background-color: pink;
+}
+
+.add-mark {
+  margin-left: 10px;
+  font-size: 30px;
+  padding-top: 100px;
 }
 </style>
