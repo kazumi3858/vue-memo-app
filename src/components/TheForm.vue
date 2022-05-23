@@ -1,16 +1,16 @@
 <template>
   <div class="main-form">
-    <div v-show="this.memo === 'new-memo'">
+    <div v-show="memo.content === null && memo.formView">
       <form @submit.prevent>
         <textarea v-model="newMemo"></textarea>
-        <button @click="addMemo(newMemo)">Create</button>
+        <button @click="addMemo">Create</button>
       </form>
     </div>
-    <div v-show="typeof this.memo === 'object' && Object.keys(this.memo).length !== 0">
+    <div v-show="memo.content !== null && Object.keys(memo).length !== 0 && memo.formView">
       <form @submit.prevent>
-        <textarea v-model="this.memo.content"></textarea>
+        <textarea v-model="memo.content"></textarea>
         <button @click="updateMemo">Update</button>
-        <button>Delete</button>
+        <button @click="deleteMemo">Delete</button>
       </form>
     </div>
   </div>
@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      newMemo: null
+      newMemo: ''
     }
   },
   computed: {
@@ -34,40 +34,33 @@ export default {
     memo: {
       get: function() {
         return this.selectedMemo
-      },
-      // set: function(value) {
-      //   this.$emit('selected-memo', value)
-      // }
+      }
     }
   },
   methods: {
-    // showForm(selectedMemo) {
-    //   console.log(selectedMemo)
-    // },
     createMemoObject(memoData) {
       return {
         title: memoData.split('\n')[0],
         content: memoData,
-        time: Date.now()
+        time: Date.now(),
+        formView: true
       }
     },
-    addMemo(memoData) {
-      if (!memoData) {
+    addMemo() {
+      if (!this.newMemo) {
         return
       }
-      const memoObject = this.createMemoObject(memoData)
-      // {
-      //   title: this.newMemo.split('\n')[0],
-      //   content: this.newMemo,
-      //   time: Date.now()
-      // }
+      const memoObject = this.createMemoObject(this.newMemo)
       this.memoList.push(memoObject)
-      memoData = ''
       this.saveMemos()
+      this.newMemo = ''
+      this.memo.formView = false
     },
-    removeMemo(index) {
+    deleteMemo() {
+      const index = this.memoList.indexOf(this.memo)
       this.memoList.splice(index, 1)
       this.saveMemos()
+      this.memo.formView = false
     },
     saveMemos() {
       const jsonMemos = JSON.stringify(this.memoList)
@@ -76,7 +69,10 @@ export default {
     updateMemo() {
       const index = this.memoList.indexOf(this.memo)
       this.memoList.splice(index, 1)
-      this.addMemo(this.memo.content)
+      const memoObject = this.createMemoObject(this.memo.content)
+      this.memoList.push(memoObject)
+      this.saveMemos()
+      this.memo.formView = false
     }
   }
 }
