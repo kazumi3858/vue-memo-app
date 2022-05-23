@@ -1,9 +1,9 @@
 <template>
   <div class="memo-list">
     <h1>memo</h1>
-    <span class="add-mark" @click="selectFromList('add-mark')">+</span>
+    <span class="add-mark" @click="selectMemo('new-memo')">+</span>
     <ul>
-      <li v-for="memo in memos" :key="memo.time" @click="selectFromList(memo)">
+      <li v-for="memo in memos" :key="memo.time" @click="selectMemo(memo)">
       {{ memo.title }}
       </li>
     </ul>
@@ -16,8 +16,8 @@ export default {
     memos: Array
   },
   methods: {
-    selectFromList (selectedMemo) {
-      this.$emit('send-selected-memo-data', selectedMemo)
+    selectMemo (selectedMemo) {
+      this.$emit('selected-memo', selectedMemo)
     }
   }
 }

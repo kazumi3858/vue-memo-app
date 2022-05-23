@@ -1,12 +1,12 @@
 <template>
   <div class="main-form">
-    <div v-show="this.$parent.selectedMemo === 'add-mark'">
+    <div v-show="this.selectedMemo === 'new-memo'">
       <form @submit.prevent>
         <textarea v-model="newMemo"></textarea>
         <button @click="addMemo">Create</button>
       </form>
     </div>
-    <div v-show="typeof this.$parent.selectedMemo === 'object'">
+    <div v-show="typeof this.selectedMemo === 'object' && this.selectedMemo !== null">
       <form @submit.prevent>
         <textarea></textarea>
         <button>Update</button>
@@ -19,7 +19,8 @@
 <script>
 export default {
   props: {
-    memos: Array
+    memos: Array,
+    selectedMemo: [Object, String]
   },
   data() {
     return {

@@ -1,6 +1,8 @@
 <template>
-  <the-memo-list :memos="memos" @send-selected-memo-data="checkSelectedMemo"/>
-  <the-form :memos="memos" :selectedMemo="selectedMemo"/>
+  <div class="main-content">
+    <the-memo-list :memos="memos" @selected-memo="checkSelectedMemo"/>
+    <the-form :memos="memos" :selectedMemo="selectedMemo"/>
+  </div>
 </template>
 
 <script>
@@ -22,9 +24,9 @@ export default {
   mounted() {
     if (localStorage.getItem('memos')) {
       try {
-        this.memos = JSON.parse(localStorage.getItem('memos'));
+        this.memos = JSON.parse(localStorage.getItem('memos'))
       } catch (e) {
-        localStorage.removeItem('memos');
+        localStorage.removeItem('memos')
       }
     }
   },
@@ -43,12 +45,15 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin-top: 60px;
-  display: flex;
-  justify-content: center;
-  height: 100%;
 }
 
 body {
   background-color: #c3e0bf;
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  height: 100%;
 }
 </style>
