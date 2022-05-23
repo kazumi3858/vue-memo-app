@@ -1,15 +1,15 @@
 <template>
   <div class="main-form">
-    <div v-show="this.selectedMemo === 'new-memo'">
+    <div v-show="this.memo === 'new-memo'">
       <form @submit.prevent>
         <textarea v-model="newMemo"></textarea>
-        <button @click="addMemo">Create</button>
+        <button @click="addMemo(newMemo)">Create</button>
       </form>
     </div>
-    <div v-show="typeof this.selectedMemo === 'object' && Object.keys(this.selectedMemo).length !== 0">
+    <div v-show="typeof this.memo === 'object' && Object.keys(this.memo).length !== 0">
       <form @submit.prevent>
         <textarea v-model="this.memo.content"></textarea>
-        <button>Update</button>
+        <button @click="updateMemo">Update</button>
         <button>Delete</button>
       </form>
     </div>
@@ -31,25 +31,38 @@ export default {
     memoList: function() {
       return this.memos
     },
-    memo: function() {
-      return this.selectedMemo
+    memo: {
+      get: function() {
+        return this.selectedMemo
+      },
+      // set: function(value) {
+      //   this.$emit('selected-memo', value)
+      // }
     }
   },
   methods: {
     // showForm(selectedMemo) {
     //   console.log(selectedMemo)
     // },
-    addMemo() {
-      if (!this.newMemo) {
-        return
-      }
-      const memoObject = {
-        title: this.newMemo.split('\n')[0],
-        content: this.newMemo,
+    createMemoObject(memoData) {
+      return {
+        title: memoData.split('\n')[0],
+        content: memoData,
         time: Date.now()
       }
+    },
+    addMemo(memoData) {
+      if (!memoData) {
+        return
+      }
+      const memoObject = this.createMemoObject(memoData)
+      // {
+      //   title: this.newMemo.split('\n')[0],
+      //   content: this.newMemo,
+      //   time: Date.now()
+      // }
       this.memoList.push(memoObject)
-      this.newMemo = ''
+      memoData = ''
       this.saveMemos()
     },
     removeMemo(index) {
@@ -59,6 +72,11 @@ export default {
     saveMemos() {
       const jsonMemos = JSON.stringify(this.memoList)
       localStorage.setItem('memos', jsonMemos)
+    },
+    updateMemo() {
+      const index = this.memoList.indexOf(this.memo)
+      this.memoList.splice(index, 1)
+      this.addMemo(this.memo.content)
     }
   }
 }
