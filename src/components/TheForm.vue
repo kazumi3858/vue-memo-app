@@ -6,9 +6,9 @@
         <button @click="addMemo">Create</button>
       </form>
     </div>
-    <div v-show="typeof this.selectedMemo === 'object' && this.selectedMemo !== null">
+    <div v-show="typeof this.selectedMemo === 'object' && Object.keys(this.selectedMemo).length !== 0">
       <form @submit.prevent>
-        <textarea></textarea>
+        <textarea v-model="this.memo.content"></textarea>
         <button>Update</button>
         <button>Delete</button>
       </form>
@@ -30,6 +30,9 @@ export default {
   computed: {
     memoList: function() {
       return this.memos
+    },
+    memo: function() {
+      return this.selectedMemo
     }
   },
   methods: {

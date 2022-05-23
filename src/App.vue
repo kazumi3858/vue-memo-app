@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       memos: [],
-      selectedMemo: null
+      selectedMemo: {}
       // newMemo: null
     }
   },
