@@ -1,7 +1,14 @@
 <template>
   <div class="main-content">
-    <the-memo-list :memos="memos" @select-memo="checkSelectedMemo" />
-    <the-form :memos="memos" :selected-memo="selectedMemo" @select-memo="checkSelectedMemo" />
+    <the-memo-list
+      :memos="memos"
+      @select-memo="checkSelectedMemo"
+    />
+    <the-form
+      :memos="memos"
+      :selected-memo="selectedMemo"
+      @select-memo="checkSelectedMemo"
+    />
   </div>
 </template>
 

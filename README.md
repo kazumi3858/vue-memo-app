@@ -1,24 +1,15 @@
-# vue-memo-app
+# Vue memo app
+This is a simple memo app :)
 
-## Project setup
+## Setup
+Clone this repository and move to the directory.
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+$ git clone https://github.com/kazumi3858/vue-memo-app.git
 ```
 
-### Compiles and minifies for production
+Run this command.
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+$ npm run serve
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Open the URL shown on the terminal.

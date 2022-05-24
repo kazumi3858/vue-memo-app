@@ -1,9 +1,18 @@
 <template>
   <div class="memo-list">
-    <h1>memo</h1>
-    <span class="create-mark" @click="select({content: null})">+</span>
-    <ul>
-      <li v-for="memo in memos" :key="memo.time">
+    <h1 class="app-title">
+      memo
+    </h1>
+    <span
+      class="create-mark"
+      @click="select({content: null})"
+    >+</span>
+    <ul class="lists">
+      <li
+        v-for="memo in memos"
+        :key="memo.time"
+        class="each-list"
+      >
         <div @click="select(memo)">
           {{ memo.title }}
         </div>
@@ -30,17 +39,17 @@ export default {
 </script>
 
 <style scoped>
-h1 {
+.app-title {
   display: inline-block;
 }
-ul {
+.lists {
   list-style-type: none;
   padding: 0;
 }
-li {
+.each-list {
   margin-bottom: 16px;
 }
-li:hover,
+.each-list:hover,
 .create-mark:hover {
   color: #91377c;
   cursor: pointer;
