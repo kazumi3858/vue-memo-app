@@ -15,47 +15,44 @@
 <script>
 export default {
   props: {
-    memos: Array
+    memos: {
+      type: Array,
+      default: () => []
+    }
   },
+  emits: ['select-memo'],
   methods: {
     select(selectedMemo) {
-      this.$emit('selected-memo', selectedMemo)
+      this.$emit('select-memo', selectedMemo)
     }
   }
 }
-
 </script>
 
 <style scoped>
 h1 {
   display: inline-block;
 }
-
 ul {
   list-style-type: none;
   padding: 0;
 }
-
 li {
   margin-bottom: 16px;
 }
-
 li:hover,
 .create-mark:hover {
   color: #91377c;
   cursor: pointer;
 }
-
 .memo-list {
   width: 400px;
   padding: 16px 16px 16px 40px;
   background-color: white;
 }
-
 .create-mark {
   margin-left: 8px;
   font-size: 30px;
   color: gray;
 }
-
 </style>

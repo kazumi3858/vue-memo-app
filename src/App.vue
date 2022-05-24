@@ -1,7 +1,7 @@
 <template>
   <div class="main-content">
-    <the-memo-list :memos="memos" @selected-memo="checkSelectedMemo"/>
-    <the-form :memos="memos" :selectedMemo="selectedMemo" @selected-memo="checkSelectedMemo"/>
+    <the-memo-list :memos="memos" @select-memo="checkSelectedMemo" />
+    <the-form :memos="memos" :selected-memo="selectedMemo" @select-memo="checkSelectedMemo" />
   </div>
 </template>
 
@@ -38,17 +38,17 @@ export default {
 </script>
 
 <style>
-html, #app {
+html,
+#app {
   height: 100%;
+  min-height: 500px;
 }
-
 body {
   height: 100%;
   margin: 0;
   padding: 0;
   background-color: #ccc0d1;
 }
-
 .main-content {
   display: flex;
   justify-content: center;

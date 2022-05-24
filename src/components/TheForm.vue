@@ -2,18 +2,24 @@
   <div class="main-form">
     <div v-show="memo.content === null">
       <form @submit.prevent>
-        <textarea v-model="newMemo"></textarea>
+        <textarea v-model="newMemo" />
         <div>
-          <button @click="create(newMemo)">Create</button>
+          <button @click="create(newMemo)">
+            Create
+          </button>
         </div>
       </form>
     </div>
     <div v-show="memo.content !== null && Object.keys(memo).length !== 0">
       <form @submit.prevent>
-        <textarea v-model="memo.content"></textarea>
+        <textarea v-model="memo.content" />
         <div>
-          <button @click="update(memo.content)">Update</button>
-          <button @click="destroy">Delete</button>
+          <button @click="update(memo.content)">
+            Update
+          </button>
+          <button @click="destroy">
+            Delete
+          </button>
         </div>
       </form>
     </div>
@@ -23,9 +29,16 @@
 <script>
 export default {
   props: {
-    memos: Array,
-    selectedMemo: Object
+    memos: {
+      type: Array,
+      default: () => []
+    },
+    selectedMemo: {
+      type: Object,
+      default: () => {}
+    }
   },
+  emits: ['select-memo'],
   data() {
     return {
       newMemo: ''
@@ -40,7 +53,7 @@ export default {
         return this.selectedMemo
       },
       set(newValue) {
-        this.$emit('selected-memo', newValue)
+        this.$emit('select-memo', newValue)
       }
     }
   },
@@ -81,7 +94,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style scoped>
@@ -91,14 +103,12 @@ export default {
   background-color: white;
   text-align: center;
 }
-
 textarea {
   min-width: 200px;
   width: 400px;
   max-width: 480px;
   height: 400px;
 }
-
 button {
   width: 80px;
   color: white;
@@ -108,9 +118,7 @@ button {
   margin: 8px;
   padding: 8px;
 }
-
 button:hover {
   cursor: pointer;
 }
-
 </style>
