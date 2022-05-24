@@ -28,13 +28,11 @@ export default {
     }
   },
   computed: {
-    memoList: function() {
+    memoList() {
       return this.memos
     },
-    memo: {
-      get: function() {
-        return this.selectedMemo
-      }
+    memo() {
+      return this.selectedMemo
     }
   },
   methods: {
@@ -54,8 +52,7 @@ export default {
       if (!memoData) {
         return
       }
-      const memoObject = this.createMemoObject(memoData)
-      this.memoList.push(memoObject)
+      this.memoList.push(this.createMemoObject(memoData))
       this.save()
       this.memo.formView = false
     },
