@@ -1,7 +1,7 @@
 <template>
   <div class="main-content">
     <the-memo-list :memos="memos" @selected-memo="checkSelectedMemo"/>
-    <the-form :memos="memos" :selectedMemo="selectedMemo"/>
+    <the-form :memos="memos" :selectedMemo="selectedMemo" @selected-memo="checkSelectedMemo"/>
   </div>
 </template>
 
@@ -18,7 +18,6 @@ export default {
     return {
       memos: [],
       selectedMemo: {}
-      // newMemo: null
     }
   },
   mounted() {
@@ -33,22 +32,21 @@ export default {
   methods: {
     checkSelectedMemo(selectedMemo) {
       this.selectedMemo = selectedMemo
-      // this.$refs.form.showForm(this.selectedMemo)
     }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin-top: 60px;
+html, #app {
+  height: 100%;
 }
 
 body {
-  background-color: #c3e0bf;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #ccc0d1;
 }
 
 .main-content {

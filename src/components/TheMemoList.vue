@@ -1,10 +1,12 @@
 <template>
   <div class="memo-list">
     <h1>memo</h1>
-    <span class="create-mark" @click="selectMemo({content: null, formView: true})">+</span>
+    <span class="create-mark" @click="select({content: null})">+</span>
     <ul>
-      <li v-for="memo in memos" :key="memo.time" @click="selectMemo(memo)">
-        {{ memo.title }}
+      <li v-for="memo in memos" :key="memo.time">
+        <div @click="select(memo)">
+          {{ memo.title }}
+        </div>
       </li>
     </ul>
   </div>
@@ -16,7 +18,7 @@ export default {
     memos: Array
   },
   methods: {
-    selectMemo(selectedMemo) {
+    select(selectedMemo) {
       this.$emit('selected-memo', selectedMemo)
     }
   }
@@ -35,28 +37,25 @@ ul {
 }
 
 li {
-  margin: 0 10px;
+  margin-bottom: 16px;
 }
 
 li:hover,
 .create-mark:hover {
-  color: blue;
+  color: #91377c;
   cursor: pointer;
-}
-
-a {
-  color: #42b983;
 }
 
 .memo-list {
   width: 400px;
-  background-color: pink;
+  padding: 16px 16px 16px 40px;
+  background-color: white;
 }
 
 .create-mark {
-  margin-left: 10px;
+  margin-left: 8px;
   font-size: 30px;
-  padding-top: 100px;
+  color: gray;
 }
 
 </style>

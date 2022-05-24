@@ -1,16 +1,20 @@
 <template>
   <div class="main-form">
-    <div v-show="memo.content === null && memo.formView">
+    <div v-show="memo.content === null">
       <form @submit.prevent>
         <textarea v-model="newMemo"></textarea>
-        <button @click="create(newMemo)">Create</button>
+        <div>
+          <button @click="create(newMemo)">Create</button>
+        </div>
       </form>
     </div>
-    <div v-show="memo.content !== null && Object.keys(memo).length !== 0 && memo.formView">
+    <div v-show="memo.content !== null && Object.keys(memo).length !== 0">
       <form @submit.prevent>
         <textarea v-model="memo.content"></textarea>
-        <button @click="update(memo.content)">Update</button>
-        <button @click="destroy">Delete</button>
+        <div>
+          <button @click="update(memo.content)">Update</button>
+          <button @click="destroy">Delete</button>
+        </div>
       </form>
     </div>
   </div>
@@ -20,7 +24,7 @@
 export default {
   props: {
     memos: Array,
-    selectedMemo: [Object, String]
+    selectedMemo: Object
   },
   data() {
     return {
@@ -31,8 +35,13 @@ export default {
     memoList() {
       return this.memos
     },
-    memo() {
-      return this.selectedMemo
+    memo: {
+      get() {
+        return this.selectedMemo
+      },
+      set(newValue) {
+        this.$emit('selected-memo', newValue)
+      }
     }
   },
   methods: {
@@ -40,8 +49,7 @@ export default {
       return {
         title: memoData.split('\n')[0],
         content: memoData,
-        time: Date.now(),
-        formView: true
+        time: Date.now()
       }
     },
     create(memoData) {
@@ -54,13 +62,13 @@ export default {
       }
       this.memoList.push(this.createMemoObject(memoData))
       this.save()
-      this.memo.formView = false
+      this.memo = {}
     },
     destroy() {
       const index = this.memoList.indexOf(this.memo)
       this.memoList.splice(index, 1)
       this.save()
-      this.memo.formView = false
+      this.memo = {}
     },
     save() {
       const jsonMemos = JSON.stringify(this.memoList)
@@ -77,32 +85,32 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-
 .main-form {
-  width: 400px;
-  background-color: gray;
+  width: 520px;
+  padding-top: 40px;
+  background-color: white;
+  text-align: center;
 }
 
 textarea {
-  width: 300px;
-  height: 200px;
+  min-width: 200px;
+  width: 400px;
+  max-width: 480px;
+  height: 400px;
+}
+
+button {
+  width: 80px;
+  color: white;
+  background-color: #7d5885;
+  border: none;
+  border-radius: 8px;
+  margin: 8px;
+  padding: 8px;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 </style>
