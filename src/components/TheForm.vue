@@ -3,14 +3,14 @@
     <div v-show="memo.content === null && memo.formView">
       <form @submit.prevent>
         <textarea v-model="newMemo"></textarea>
-        <button @click="addMemo(newMemo)">Create</button>
+        <button @click="create(newMemo)">Create</button>
       </form>
     </div>
     <div v-show="memo.content !== null && Object.keys(memo).length !== 0 && memo.formView">
       <form @submit.prevent>
         <textarea v-model="memo.content"></textarea>
-        <button @click="updateMemo(memo.content)">Update</button>
-        <button @click="deleteMemo">Delete</button>
+        <button @click="update(memo.content)">Update</button>
+        <button @click="destroy">Delete</button>
       </form>
     </div>
   </div>
@@ -46,33 +46,33 @@ export default {
         formView: true
       }
     },
-    addMemo(data) {
-      this.updateList(data)
+    create(memoData) {
+      this.addMemoToList(memoData)
       this.newMemo = ''
     },
-    updateList(data) {
-      if (!data) {
+    addMemoToList(memoData) {
+      if (!memoData) {
         return
       }
-      const memoObject = this.createMemoObject(data)
+      const memoObject = this.createMemoObject(memoData)
       this.memoList.push(memoObject)
-      this.saveMemos()
+      this.save()
       this.memo.formView = false
     },
-    deleteMemo() {
+    destroy() {
       const index = this.memoList.indexOf(this.memo)
       this.memoList.splice(index, 1)
-      this.saveMemos()
+      this.save()
       this.memo.formView = false
     },
-    saveMemos() {
+    save() {
       const jsonMemos = JSON.stringify(this.memoList)
       localStorage.setItem('memos', jsonMemos)
     },
-    updateMemo(data) {
+    update(memoData) {
       const index = this.memoList.indexOf(this.memo)
       this.memoList.splice(index, 1)
-      this.updateList(data)
+      this.addMemoToList(memoData)
     }
   }
 }
