@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <the-memo-list
+    <memo-list
       :memos="memos"
       @select-memo="checkSelectedMemo"
     />
@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import TheMemoList from './components/TheMemoList.vue'
+import MemoList from './components/MemoList.vue'
 import TheForm from './components/TheForm.vue'
 
 export default {
   components: {
-    TheMemoList,
+    MemoList,
     TheForm
   },
   data() {
