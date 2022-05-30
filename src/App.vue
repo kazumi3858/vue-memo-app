@@ -5,9 +5,10 @@
       @select-memo="checkSelectedMemo"
     />
     <the-form
-      :memos="memos"
       :selected-memo="selectedMemo"
-      @select-memo="checkSelectedMemo"
+      @create-new-memo="create"
+      @update-memo="update"
+      @destroy-memo="destroy"
     />
   </div>
 </template>
@@ -39,6 +40,41 @@ export default {
   methods: {
     checkSelectedMemo(selectedMemo) {
       this.selectedMemo = selectedMemo
+    },
+    createMemoObject(memoData) {
+      return {
+        title: memoData.split('\n')[0],
+        content: memoData,
+        time: Date.now()
+      }
+    },
+    create(memoData) {
+      console.log(memoData)
+      this.addMemoToList(memoData)
+      this.newMemo = 'New memo'
+    },
+    addMemoToList(memoData) {
+      if (!memoData) {
+        return
+      }
+      this.memos.push(this.createMemoObject(memoData))
+      this.save()
+      this.selectedMemo = {}
+    },
+    destroy() {
+      const index = this.memos.indexOf(this.selectedMemo)
+      this.memos.splice(index, 1)
+      this.save()
+      this.selectedMemo = {}
+    },
+    save() {
+      const jsonMemos = JSON.stringify(this.memos)
+      localStorage.setItem('memos', jsonMemos)
+    },
+    update(memoData) {
+      const index = this.memos.indexOf(this.selectedMemo)
+      this.memos.splice(index, 1)
+      this.addMemoToList(memoData)
     }
   }
 }

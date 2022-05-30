@@ -9,7 +9,7 @@
         <div>
           <button
             class="form-button"
-            @click="create(newMemo)"
+            @click="$emit('create-new-memo', newMemo)"
           >
             Create
           </button>
@@ -25,13 +25,13 @@
         <div>
           <button
             class="form-button"
-            @click="update(memo.content)"
+            @click="$emit('update-memo', memo.content)"
           >
             Update
           </button>
           <button
             class="form-button"
-            @click="destroy"
+            @click="$emit('destroy-memo')"
           >
             Delete
           </button>
@@ -44,68 +44,22 @@
 <script>
 export default {
   props: {
-    memos: {
-      type: Array,
-      default: () => []
-    },
     selectedMemo: {
       type: Object,
       default: () => {}
     }
   },
-  emits: ['select-memo'],
+  emits: ['select-memo', 'create-new-memo', 'update-memo', 'destroy-memo'],
   data() {
     return {
       newMemo: 'New memo'
     }
   },
   computed: {
-    memoList() {
-      return this.memos
-    },
     memo: {
       get() {
         return this.selectedMemo
-      },
-      set(newValue) {
-        this.$emit('select-memo', newValue)
       }
-    }
-  },
-  methods: {
-    createMemoObject(memoData) {
-      return {
-        title: memoData.split('\n')[0],
-        content: memoData,
-        time: Date.now()
-      }
-    },
-    create(memoData) {
-      this.addMemoToList(memoData)
-      this.newMemo = 'New memo'
-    },
-    addMemoToList(memoData) {
-      if (!memoData) {
-        return
-      }
-      this.memoList.push(this.createMemoObject(memoData))
-      this.save()
-      this.memo = {}
-    },
-    destroy() {
-      const index = this.memoList.indexOf(this.memo)
-      this.memoList.splice(index, 1)
-      this.save()
-      this.memo = {}
-    },
-    save() {
-      const jsonMemos = JSON.stringify(this.memoList)
-      localStorage.setItem('memos', jsonMemos)
-    },
-    update(memoData) {
-      const index = this.memoList.indexOf(this.memo)
-      this.memoList.splice(index, 1)
-      this.addMemoToList(memoData)
     }
   }
 }
