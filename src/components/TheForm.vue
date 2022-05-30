@@ -49,7 +49,7 @@ export default {
       default: () => {}
     }
   },
-  emits: ['select-memo', 'create-new-memo', 'update-memo', 'destroy-memo'],
+  emits: ['create-new-memo', 'update-memo', 'destroy-memo'],
   data() {
     return {
       newMemo: 'New memo'
