@@ -5,7 +5,7 @@
     </h1>
     <span
       class="create-mark"
-      @click="select({content: null})"
+      @click="select({time: null})"
     >+</span>
     <ul class="lists">
       <li

@@ -1,6 +1,6 @@
 <template>
   <div class="main-form">
-    <div v-show="memo.content === null">
+    <div v-show="memo.time === null">
       <form @submit.prevent>
         <textarea
           v-model="newMemo"
@@ -16,7 +16,7 @@
         </div>
       </form>
     </div>
-    <div v-show="memo.content !== null && Object.keys(memo).length !== 0">
+    <div v-show="memo.time !== null && Object.keys(memo).length !== 0">
       <form @submit.prevent>
         <textarea
           v-model="memo.content"
@@ -56,10 +56,8 @@ export default {
     }
   },
   computed: {
-    memo: {
-      get() {
-        return this.selectedMemo
-      }
+    memo() {
+      return this.selectedMemo
     }
   }
 }
