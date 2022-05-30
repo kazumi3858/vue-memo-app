@@ -49,11 +49,6 @@ export default {
       }
     },
     create(memoData) {
-      console.log(memoData)
-      this.addMemoToList(memoData)
-      this.newMemo = 'New memo'
-    },
-    addMemoToList(memoData) {
       if (!memoData) {
         return
       }
@@ -74,7 +69,7 @@ export default {
     update(memoData) {
       const index = this.memos.indexOf(this.selectedMemo)
       this.memos.splice(index, 1)
-      this.addMemoToList(memoData)
+      this.create(memoData)
     }
   }
 }

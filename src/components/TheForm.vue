@@ -9,7 +9,7 @@
         <div>
           <button
             class="form-button"
-            @click="$emit('create-new-memo', newMemo)"
+            @click="$emit('create-new-memo', newMemo); newMemo = 'New Memo'"
           >
             Create
           </button>
