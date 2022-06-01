@@ -4,7 +4,7 @@
       :memos="memos"
       @select-memo="checkSelectedMemo"
     />
-    <the-form
+    <memo-form
       :selected-memo="selectedMemo"
       @create-new-memo="create"
       @update-memo="update"
@@ -15,12 +15,12 @@
 
 <script>
 import MemoList from './components/MemoList.vue'
-import TheForm from './components/TheForm.vue'
+import MemoForm from './components/MemoForm.vue'
 
 export default {
   components: {
     MemoList,
-    TheForm
+    MemoForm
   },
   data() {
     return {
